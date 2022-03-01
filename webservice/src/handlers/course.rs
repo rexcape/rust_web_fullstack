@@ -147,7 +147,7 @@ mod tests {
         let resp = get_course_detail(app_state, params).await;
         match resp {
             Ok(_) => println!("Something wrong"),
-            Err(err) => assert_eq!(err.status_code(), StatusCode::NotFound),
+            Err(err) => assert_eq!(err.status_code(), StatusCode::NOT_FOUND),
         }
     }
 
@@ -163,7 +163,7 @@ mod tests {
             db: db_pool,
         });
 
-        let update_course = web::Json(UpdateCourse {
+        let update_course = UpdateCourse {
             name: Some("Course name changed".into()),
             description: Some("This is another course".into()),
             format: None,
@@ -172,7 +172,7 @@ mod tests {
             price: None,
             language: Some("Chinese".into()),
             level: None,
-        });
+        };
         let params: web::Path<(i32, i32)> = web::Path::from((1, 2));
         let update_param = web::Json(update_course);
 
