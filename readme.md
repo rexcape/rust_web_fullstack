@@ -1,5 +1,7 @@
 # rust_web_fullstack
 
+Demo project for [this bilibili video(BV1RP4y1G7KF)](https://www.bilibili.com/video/BV1RP4y1G7KF)
+
 **FOR STUDY ONLY**
 
 Database: PostgreSQL
