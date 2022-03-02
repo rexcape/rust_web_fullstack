@@ -1,9 +1,9 @@
 use crate::errors::MyError;
 use crate::models::*;
-use actix_web::{web, Error, Response, Result};
+use actix_web::{web, Error, HttpResponse, Result};
 use serde_json::json;
 
-pub async fn get_all_teachers(tmpl: web::Data<tera::Tera>) -> Result<HttpResponse, MyError> {
+pub async fn get_all_teachers(tmpl: web::Data<tera::Tera>) -> Result<HttpResponse, Error> {
     let awc_client = awc::Client::default();
 
     let res = awc_client
@@ -21,7 +21,7 @@ pub async fn get_all_teachers(tmpl: web::Data<tera::Tera>) -> Result<HttpRespons
 
     let s = tmpl
         .render("teachers.html", &ctx)
-        .map_err(|_| MyError::TeraError("Template error".to_string()));
+        .map_err(|_| MyError::TeraError("Template error".to_string()))?;
 
     Ok(HttpResponse::Ok().content_type("text/html").body(s))
 }
@@ -34,13 +34,13 @@ pub async fn show_register_form(tmpl: web::Data<tera::Tera>) -> Result<HttpRespo
     ctx.insert("current_profile", "");
     let s = tmpl
         .render("register.html", &ctx)
-        .map_err(|_| MyError::TeraError("Template error".to_string()));
+        .map_err(|_| MyError::TeraError("Template error".to_string()))?;
     Ok(HttpResponse::Ok().content_type("text/html").body(s))
 }
 
 pub async fn handle_register(
     tmpl: web::Data<tera::Tera>,
-    params: wen::Form<TeacherRegisterForm>,
+    params: web::Form<TeacherRegisterForm>,
 ) -> Result<HttpResponse, Error> {
     let mut ctx = tera::Context::new();
     let s;
@@ -52,7 +52,7 @@ pub async fn handle_register(
         ctx.insert("current_profile", &params.profile);
         s = tmpl
             .render("register.html", &ctx)
-            .map_err(|_| MyErrpr::TeraError("Template error".to_string()));
+            .map_err(|_| MyError::TeraError("Template error".to_string()))?;
     } else {
         let new_teacher = json!({
             "name": &params.name,
@@ -68,7 +68,7 @@ pub async fn handle_register(
             .body()
             .await?;
         let teacher_response: TeacherResponse = serde_json::from_str(&std::str::from_utf8(&res)?)?;
-        s = format!("Congratulations! Your id is: {}.", teacher_response.id)
+        s = format!("Congratulations! Your id is: {}.", teacher_response.id);
     }
 
     Ok(HttpResponse::Ok().content_type("text/html").body(s))

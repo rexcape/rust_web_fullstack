@@ -40,7 +40,7 @@ async fn main() -> io::Result<()> {
         let cors = Cors::default()
             .allowed_origin("http://localhost:8080")
             .allowed_origin_fn(|origin, _req_head| {
-                origin.as_bytes().start_with(b"http://localhost")
+                origin.as_bytes().starts_with(b"http://localhost")
             })
             .allowed_methods(vec!["GET", "POST", "DELETE"])
             .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])

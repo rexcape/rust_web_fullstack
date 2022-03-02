@@ -1,7 +1,7 @@
 mod utils;
 
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
+use wasm_bindgen::{JsCast, JsValue};
 use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlButtonElement;
 
@@ -87,8 +87,8 @@ pub async fn main() -> Result<(), JsValue> {
 
         btn.set_attribute("class", "btn btn-danger btn-sm")?;
         btn.set_text_content(Some("Delete"));
-        td.append_child(&btn);
-        tr.append_child(&td);
+        td.append_child(&btn)?;
+        tr.append_child(&td)?;
 
         left_tbody.append_child(&tr)?;
     }

@@ -1,6 +1,5 @@
 use actix_web::{error, http::StatusCode, HttpResponse, Result};
 use serde::Serialize;
-use sqlx::error::Error as SQLxError;
 use std::fmt;
 
 #[allow(dead_code)]
@@ -38,9 +37,10 @@ impl MyError {
 impl error::ResponseError for MyError {
     fn status_code(&self) -> StatusCode {
         match self {
-            MyError::DBError(_msg) | MyError::ActixError(_msg) => StatusCode::INTERNAL_SERVER_ERROR,
+            MyError::ActixError(_msg) | MyError::TeraError(_msg) => {
+                StatusCode::INTERNAL_SERVER_ERROR
+            }
             MyError::NotFound(_msg) => StatusCode::NOT_FOUND,
-            MyError::InvalidInput(_msg) => StatusCode::BAD_REQUEST,
         }
     }
 
@@ -60,11 +60,5 @@ impl fmt::Display for MyError {
 impl From<actix_web::error::Error> for MyError {
     fn from(err: actix_web::error::Error) -> Self {
         MyError::ActixError(err.to_string())
-    }
-}
-
-impl From<SQLxError> for MyError {
-    fn from(err: SQLxError) -> Self {
-        MyError::DBError(err.to_string())
     }
 }
