@@ -82,7 +82,7 @@ pub async fn add_course(name: String, description: String) -> Result<Promise, Js
         name, description
     );
     opts.body(Some(&JsValue::from_str(str_json.as_str())));
-    let url = "http://localhost:3000/courses";
+    let url = "http://localhost:3000/courses/";
     let request = Request::new_with_str_and_init(&url, &opts)?;
     request
         .headers()
