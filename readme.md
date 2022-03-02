@@ -1,144 +1,143 @@
 # rust_web_fullstack
 
-[teacher.rs](https://github.com/rexcape/rust_web_fullstack/blob/main/webservice/src/dbaccess/teacher.rs)
+**FOR STUDY ONLY**
 
-cargo check
+Database: PostgreSQL
 
-```plain
-    Checking webservice v0.1.0 (E:\Projects\rust\rust_web_fullstack\webservice)
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:14:19
-   |
-14 |             name: r.name.clone(),
-   |                   ^^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+## Demo
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:15:26
-   |
-15 |             picture_url: r.picture_url.clone(),
-   |                          ^^^^^^^^^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+Download from [release](https://github.com/rexcape/rust_web_fullstack/releases)
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:16:22
-   |
-16 |             profile: r.profile.clone(),
-   |                      ^^^^^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+### Prepare
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:35:15
-   |
-35 |         name: r.name,
-   |               ^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+- install PostgreSQL
+- create database tutorial
+- create tables using tables.sql
+- install http-server with `npm install -g http-server`
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:36:22
-   |
-36 |         picture_url: r.picture_url,
-   |                      ^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+### Run
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:37:18
-   |
-37 |         profile: r.profile,
-   |                  ^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+Change working directory to release folder, and run follow commands:
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:60:15
-   |
-60 |         name: row.name,
-   |               ^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+**Replace {USERNAME} {PASSWORD} with yours**
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:61:22
-   |
-61 |         picture_url: row.picture_url,
-   |                      ^^^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+Windows Powershell
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:62:18
-   |
-62 |         profile: row.profile,
-   |                  ^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+```powershell
+$env:DATABASE_URL="postgres://{USERNAME}:{PASSWORD}@127.0.0.1:5432/tutorial"; `
+Start-Process ".\teacher-service.exe"
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:84:13
-   |
-84 |             row.name
-   |             ^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+$env:HOST_PORT="localhost:8080";Start-Process ".\svr.exe"
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:89:13
-   |
-89 |             row.picture_url
-   |             ^^^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+http-server dist
+```
 
-error[E0308]: mismatched types
-  --> webservice\src\bin\..\dbaccess\teacher.rs:94:13
-   |
-94 |             row.profile
-   |             ^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-   |
-   = note: expected struct `std::string::String`
-                found enum `std::option::Option<std::string::String>`
+\*nix
 
-error[E0308]: mismatched types
-   --> webservice\src\bin\..\dbaccess\teacher.rs:110:15
-110 |         name: r.name,
-    |               ^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-    |
-    = note: expected struct `std::string::String`
-                 found enum `std::option::Option<std::string::String>`
+```shell
+DATABASE_URL="postgres://{USERNAME}:{PASSWORD}@127.0.0.1:5432/tutorial" \
+./teacher-service
+HOST_PORT="localhost:8080";./svr
+```
 
-error[E0308]: mismatched types
-   --> webservice\src\bin\..\dbaccess\teacher.rs:111:22
-    |
-111 |         picture_url: r.picture_url,
-    |                      ^^^^^^^^^^^^^ expected struct `std::string::String`, found enum `std::option::Option`
-    |
-    = note: expected struct `std::string::String`
-                 found enum `std::option::Option<std::string::String>`
+## Build
 
-error[E0308]: mismatched types
-   --> webservice\src\bin\..\dbaccess\teacher.rs:112:18
-    |
-112 |         profile: r.profile,
-    |
-    = note: expected struct `std::string::String`
-                 found enum `std::option::Option<std::string::String>`
+```shell
+git clone https://github.com/rexcape/rust_web_fullstack.git
+cd rust_web_fullstack
+```
 
-For more information about this error, try `rustc --explain E0308`.
-error: could not compile `webservice` due to 15 previous errors
+### webservice
+
+```shell
+# directory rust_web_fullstack
+cd webservice
+cargo build --bin teacher-service --release
+```
+
+**Replace {USERNAME} {PASSWORD} with yours**
+
+Windows Powershell
+
+```powershell
+$env:DATABASE_URL="postgres://{USERNAME}:{PASSWORD}@127.0.0.1:5432/tutorial";`
+.\target\release\teacher-service.exe
+```
+
+\*nix
+
+```shell
+DATABASE_URL="postgres://{USERNAME}:{PASSWORD}@127.0.0.1:5432/tutorial" \
+./target/release/teacher-service
+```
+
+### webapp
+
+```shell
+# directory rust_web_fullstack
+cd webapp
+cargo build --bin svr --release
+```
+
+Windows Powershell
+
+```powershell
+$env:HOST_PORT="localhost:8080"; `
+.\target\release\svr.exe
+```
+
+\*nix
+
+```shell
+HOST_PORT="localhost:8080" \
+target/release/svr
+```
+
+### wasm-client
+
+```shell
+# directory rust_web_fullstack
+cd wasm-client
+wasm-pack build
+
+cd www
+npm run build
+
+npm install -g http-server
+http-server dist
+```
+
+## Develop
+
+```shell
+git clone https://github.com/rexcape/rust_web_fullstack.git
+cd rust_web_fullstack
+```
+
+### webservice
+
+**Update the .env file under webservice folder**
+
+```shell
+# directory rust_web_fullstack
+cd webservice
+cargo run --bin teacher-service
+```
+
+### webapp
+
+```shell
+# directory rust_web_fullstack
+cd webapp
+cargo run --bin svr
+```
+
+### wasm-client
+
+```shell
+# directory rust_web_fullstack
+cd wasm-client
+wasm-pack build
+cd www
+npm run start
 ```
